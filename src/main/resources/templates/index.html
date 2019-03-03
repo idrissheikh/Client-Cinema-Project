@@ -42,15 +42,14 @@
 <div class="container">
     <h3 class="text-primary"> You can see this page honly if you are logged inn  </h3>
 
-    <table class="table col-sm-8">
+    <div th:if="${user.roles} == USER">
+
+        <table class="table col-sm-8">
         <tr>
             <th>Id</th>
             <th>Film</th>
             <th>cinema</th>
             <th>Date</th>
-
-
-
         </tr>
         <tbody>
 
@@ -61,24 +60,56 @@
             <td th:text="${ticket.cinema}"></td>
             <td th:text="${ticket.date}"></td>
 
-            <td>
-                <a class="btn btn-warning" th:href="@{/edit/}+${ticket.id}">Edit</a>
-            </td>
-            <td>
-                <a class="btn btn-danger" th:href="@{/delete/}+${ticket.id}">Delete</a>
-            </td>
+
             <td>
                 <a class="btn btn-warning" th:href="@{/shipping/}+${ticket.id}">Bestille</a>
             </td>
         </tr>
 
-
-
         </tbody>
     </table>
+    </div>
+
+
+    <div th:if="${user.roles} == admin">
+
+        <table class="table col-sm-8">
+            <tr>
+                <th>Id</th>
+                <th>Film</th>
+                <th>cinema</th>
+                <th>Date</th>
+            </tr>
+
+            <tbody>
+
+            <tr th:each="ticket : ${ticketes}">
+                <td th:text="${ticket.id}"></td>
+                <td th:text="${ticket.film}"></td>
+
+                <td th:text="${ticket.cinema}"></td>
+                <td th:text="${ticket.date}"></td>
+
+                <td>
+                    <a class="btn btn-warning" th:href="@{/edit/}+${ticket.id}">Edit</a>
+                </td>
+                <td>
+                    <a class="btn btn-danger" th:href="@{/delete/}+${ticket.id}">Delete</a>
+                </td>
+
+            </tr>
+
+
+
+            </tbody>
+        </table>
+    </div>
 
 
 </div>
+
+
+
 
 
 

@@ -1,7 +1,9 @@
 package no.oslomet.springsecurityh2demo;
 
 import no.oslomet.springsecurityh2demo.model.Ticket;
+import no.oslomet.springsecurityh2demo.model.User;
 import no.oslomet.springsecurityh2demo.repository.TicketRepsitory;
+import no.oslomet.springsecurityh2demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -15,6 +17,9 @@ public class SpringSecurityH2DemoApplication implements CommandLineRunner {
 
     @Autowired
     private TicketRepsitory ticketRepsitory;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(SpringSecurityH2DemoApplication.class, args);
@@ -40,6 +45,10 @@ public class SpringSecurityH2DemoApplication implements CommandLineRunner {
         ticketRepsitory.save(ticket1);
         ticketRepsitory.save(ticket2);
         ticketRepsitory.save(ticket3);
+
+        User user1 = new User("mohed", "salem", "admin@admin.com" ,"admin" ,"admin");
+        userRepository.save(user1);
+
 
 
     }

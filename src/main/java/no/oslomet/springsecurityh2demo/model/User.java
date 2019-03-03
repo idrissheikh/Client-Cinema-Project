@@ -19,7 +19,7 @@ public class User {
     private String password;
     private String roles;
 
-    public User(String firstName, String lastName, String email, String password) {
+    public User(String firstName, String lastName, String email, String password, String roles) {
         this.id =id;
         this.firstName = firstName;
         this.lastName = lastName;
