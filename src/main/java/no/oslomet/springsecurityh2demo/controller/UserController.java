@@ -12,10 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 public class UserController {
@@ -63,20 +60,25 @@ public class UserController {
         return "redirect:/";
     }
 
+    /*@PostMapping("/saveBestilling")
+    public String saveBestilling(@ModelAttribute("ticket") Ticket ticket ,
 
-    /*@GetMapping({"/list"})
-    public String ticketListe(Model model){
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+                                 @RequestParam("id") long userId,
+                                 @RequestParam("id") long ticketId
 
-        Optional<User> user = userRepository.findUserByEmail(auth.getName());
+    ) {
 
-        if(user.isPresent()) model.addAttribute("user", user.get());
 
-        List<Ticket> ticketList = ticketRepsitory.findAll();
-        return "list";
-        
-    }*/
 
+        List<Ticket> ticketList1 = new ArrayList<>();
+        ticket = ticketRepsitory.findById(ticketId).get();
+        ticketList1.add(ticket);
+
+        model.addAttribute("ticket", ticket);
+        ticketRepsitory.save(ticket);
+
+        return "redirect:/order";
+    } */
 
 
     public static String getDateTime() {
@@ -88,17 +90,18 @@ public class UserController {
     }
 
     @GetMapping("/shipping/{id}")
-    public String bestille(@PathVariable("id") String id, Model model) {
+    public String bestille(@PathVariable("id") String id, Model model, User user) {
+
         Ticket ticket = this.ticketRepsitory.findById(Long.parseLong(id)).get();
 
-
-        String date = getDateTime();
-        User user = new User();
-
+        List<Ticket> ticketList1 = new ArrayList<>();
+        ticketList1.add(ticket);
         model.addAttribute("ticket", ticket);
+        ticketRepsitory.save(ticket);
         model.addAttribute("user", user);
 
-        return "shipping";
+
+        return "order";
     }
 
 
