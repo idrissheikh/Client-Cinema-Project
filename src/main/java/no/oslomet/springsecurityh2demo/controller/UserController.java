@@ -92,9 +92,9 @@ public class UserController {
     @GetMapping("/shipping/{id}")
     public String bestille(@PathVariable("id") String id, Model model, User user) {
 
+        List<Ticket> ticketList1 = new ArrayList<>();
         Ticket ticket = this.ticketRepsitory.findById(Long.parseLong(id)).get();
 
-        List<Ticket> ticketList1 = new ArrayList<>();
         ticketList1.add(ticket);
         model.addAttribute("ticket", ticket);
         ticketRepsitory.save(ticket);
