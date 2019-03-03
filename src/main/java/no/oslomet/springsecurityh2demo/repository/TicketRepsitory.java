@@ -8,5 +8,5 @@ import java.util.Optional;
 
 
 public interface TicketRepsitory extends JpaRepository<Ticket, Long> {
-        Optional<Ticket> findTicketByFilm(String film);
+        Optional<Ticket> findById(int Id);
 }

@@ -9,10 +9,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +25,7 @@ public class UserController {
 
     @Autowired
     private TicketRepsitory ticketRepsitory;
+
     @GetMapping("/")
     public String home(){
         return "login";
@@ -38,7 +40,12 @@ public class UserController {
 
         System.out.println("innlogged user: " + user);
        if(user.isPresent()) model.addAttribute("user", user.get());
+         model.addAttribute("ticketes", ticketList);
+        System.out.println("ticket inholder: " + ticketList.size());
+
+
         return "index";
+
     }
 
     @GetMapping("/signup")
@@ -58,10 +65,41 @@ public class UserController {
 
     @GetMapping({"/list"})
     public String ticketListe(Model model){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        Optional<User> user = userRepository.findUserByEmail(auth.getName());
+
+        if(user.isPresent()) model.addAttribute("user", user.get());
+
         List<Ticket> ticketList = ticketRepsitory.findAll();
         return "list";
         
     }
+
+
+    public static String getDateTime() {
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//dd/MM/yyyy
+        Date now = new Date();
+        String strDate = sdfDate.format(now);
+
+        return strDate;
+    }
+
+    @GetMapping("/shipping/{id}")
+    public String bestille(@PathVariable("id") String id, Model model) {
+        Ticket ticket = this.ticketRepsitory.findById(Long.parseLong(id)).get();
+
+
+        String date = getDateTime();
+        User user = new User();
+//        Orders orders = new Orders();
+//        orders.setDate(date);
+        model.addAttribute("ticket", ticket);
+        model.addAttribute("user", user);
+
+        return "shipping";
+    }
+
 
 
 
