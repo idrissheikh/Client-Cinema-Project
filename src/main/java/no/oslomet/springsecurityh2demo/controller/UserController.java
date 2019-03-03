@@ -63,7 +63,8 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping({"/list"})
+
+    /*@GetMapping({"/list"})
     public String ticketListe(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
@@ -74,7 +75,8 @@ public class UserController {
         List<Ticket> ticketList = ticketRepsitory.findAll();
         return "list";
         
-    }
+    }*/
+
 
 
     public static String getDateTime() {
@@ -92,8 +94,7 @@ public class UserController {
 
         String date = getDateTime();
         User user = new User();
-//        Orders orders = new Orders();
-//        orders.setDate(date);
+
         model.addAttribute("ticket", ticket);
         model.addAttribute("user", user);
 

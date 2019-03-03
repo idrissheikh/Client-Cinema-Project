@@ -25,16 +25,16 @@ public class SpringSecurityH2DemoApplication implements CommandLineRunner {
 
         List<Ticket> ticketList = new ArrayList<>();
 
-        Ticket ticket1 = new Ticket("Date", "finasjonaltiaterm", "cineme");
+        Ticket ticket1 = new Ticket("12/12/2021", "finasjonaltiaterm", "cineme");
         ticketList.add(ticket1);
 
 
 
-        Ticket ticket2 = new Ticket("date", "fimm", "cineme");
+        Ticket ticket2 = new Ticket("21/2/2021", "man of the match", "Nasionaltiater");
 
         ticketList.add(ticket2);
 
-        Ticket ticket3 = new Ticket("date", "fimm", "cineme");
+        Ticket ticket3 = new Ticket("23/2/2021", "dark love", "bjerke student bolig");
         ticketList.add(ticket3);
 
         ticketRepsitory.save(ticket1);
