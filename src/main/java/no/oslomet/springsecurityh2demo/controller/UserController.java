@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -60,25 +61,6 @@ public class UserController {
         return "redirect:/";
     }
 
-    /*@PostMapping("/saveBestilling")
-    public String saveBestilling(@ModelAttribute("ticket") Ticket ticket ,
-
-                                 @RequestParam("id") long userId,
-                                 @RequestParam("id") long ticketId
-
-    ) {
-
-
-
-        List<Ticket> ticketList1 = new ArrayList<>();
-        ticket = ticketRepsitory.findById(ticketId).get();
-        ticketList1.add(ticket);
-
-        model.addAttribute("ticket", ticket);
-        ticketRepsitory.save(ticket);
-
-        return "redirect:/order";
-    } */
 
 
     public static String getDateTime() {
@@ -104,6 +86,36 @@ public class UserController {
         return "order";
     }
 
+
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable("id") String id,Model model ){
+        this.ticketRepsitory.deleteById(Long.parseLong(id));
+        return "redirect:/home";
+    }
+
+
+    @GetMapping("/addTicket")
+    public String addTicket(Model model ) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findUserByEmail(auth.getName()).get();
+        Ticket newTicket = new Ticket();
+        model.addAttribute("ticket", newTicket);
+        model.addAttribute("user", user);
+        return "formTicket";
+    }
+
+    @PostMapping("/saveTicket")
+    public String saveTicket(@RequestParam("date") String date,
+                             @RequestParam("film") String film,
+                             @RequestParam("cinema") String cinema) throws ParseException {
+        Date d = new SimpleDateFormat("dd-MM-yyyy hh:mm").parse(date);
+
+        Ticket tick = new Ticket(d, film, cinema);
+
+        ticketRepsitory.save(tick);
+
+        return ("redirect:/home");
+    }
 
 
 

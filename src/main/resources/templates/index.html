@@ -73,6 +73,10 @@
 
     <div th:if="${user.roles} == admin">
 
+
+            <a class="btn btn-danger" th:href="@{/addTicket}">add</a>
+
+
         <table class="table col-sm-8">
             <tr>
                 <th>Id</th>
@@ -90,9 +94,7 @@
                 <td th:text="${ticket.cinema}"></td>
                 <td th:text="${ticket.date}"></td>
 
-                <td>
-                    <a class="btn btn-warning" th:href="@{/edit/}+${ticket.id}">Edit</a>
-                </td>
+
                 <td>
                     <a class="btn btn-danger" th:href="@{/delete/}+${ticket.id}">Delete</a>
                 </td>

@@ -52,9 +52,9 @@
 
         <tr th:each="order : ${ticket}">
             <td th:text="${order.id}"></td>
-            <td th:text="${order.date}"></td>
             <td th:text="${order.film}"></td>
             <td th:text="${order.cinema}"></td>
+            <td th:text="${order.date}"></td>
         </tbody>
     </table>
 </div>

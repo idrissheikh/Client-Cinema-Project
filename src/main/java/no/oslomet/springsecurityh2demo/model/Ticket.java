@@ -5,19 +5,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Data
-@NoArgsConstructor
-
-
 public class Ticket {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String  date;
+    private Date date;
     private String film;
     private String cinema;
 
@@ -30,7 +28,7 @@ public class Ticket {
         return id;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
@@ -42,9 +40,11 @@ public class Ticket {
         return cinema;
     }
 
+    public Ticket() {
+    }
 
 
-    public Ticket(String date, String film, String cinema) {
+    public Ticket(Date date, String film, String cinema) {
         this.date = date;
         this.film = film;
         this.cinema = cinema;
